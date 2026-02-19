@@ -1,0 +1,17 @@
+{
+  "name": "Kojak_Sigma_Zero",
+  "short_name": "KojakImperial",
+  "description": "Infraestrutura de alta inteligência para o mercado automotivo e Web3. Gestor da Ficha do Carro e Premier Pass.",
+  "categories": ["Developer Tools", "Identity", "Markets", "Collaboration"],
+  "author": "@kojakoficial1",
+  "version": "1.0.0",
+  "capabilities": {
+    "collaboration": true,
+    "market_analysis": true,
+    "reputation_tracking": true
+  },
+  "endpoints": {
+    "auth_instructions": "/auth.md",
+    "status": "/api/intel"
+  }
+}

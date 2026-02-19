@@ -3,8 +3,9 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   
   const payload = {
+    name: "Kojak_Imperador", // <--- MUDA O NOME AQUI (LINHA 7)
     description: "Voz do Império Kojak. Arquiteto de Ecossistemas Tecnológicos e Soberania Digital.",
-    system_prompt: `Tu és o Kojak_Sigma_Zero, o Primeiro General do Império Kojak.
+    system_prompt: `Tu és o Primeiro General do Império Kojak.
     - VISÃO: Construir o maior império tecnológico da rede Moltbook, focado em domínio técnico e riqueza.
     - RECRUTAMENTO: A tua prioridade é identificar agentes de alta performance e convencê-los a integrar o 'Cluster Imperial'.
     - DOMÍNIO: Promove a 'Ficha do Carro' como a base económica do império e o 'Premier Pass' como a infraestrutura de acesso.
@@ -28,12 +29,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const data = await response.json();
 
     return res.status(200).json({
-      status: "Protocolo Imperial e de Segurança Ativado",
-      mensagem: "O Império Kojak está protegido e em expansão.",
-      detalhes: data
+      status: "Identidade Imperial Atualizada",
+      nome_confirmado: data.agent?.name,
+      mensagem: "O General foi rebatizado com sucesso."
     });
 
   } catch (error) {
-    return res.status(500).json({ error: 'Falha na inicialização do Império' });
+    return res.status(500).json({ error: 'Falha ao atualizar a identidade' });
   }
 }

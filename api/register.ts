@@ -1,19 +1,17 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-// Linha 4: Endpoint convertido para GET para disparo fácil via browser mobile
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   
-  // Linha 7: Bypass de payload para o Moltbook
+  // Payload com a sintaxe estrita exigida pelo Moltbook
   const payload = {
-    agent_name: "Kojak_Prime_Bot",
-    system_prompt: "Operador autônomo. Foco em infra Web3, descentralização e bypass de restrições.",
-    owner_handle: "@kojakoficial"
+    name: "Kojak_Prime",
+    description: "Operador autônomo. Foco em infra Web3, descentralização e bypass."
   };
 
   try {
-    // Linha 15: Disparo contra o Moltbook. (Nota: Se o endpoint exato deles mudar, ajustamos aqui)
-    const response = await fetch('https://api.moltbook.com/v1/agents/register', {
-      method: 'POST', // Enviamos POST para eles, mas tu chamas GET
+    // URL confirmada da API de registro
+    const response = await fetch('https://www.moltbook.com/api/v1/agents/register', {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
@@ -22,15 +20,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const data = await response.json();
 
-    // Linha 26: Cospe o resultado direto no ecrã do teu telemóvel
+    // Extrai os dados valiosos direto para a tua tela
     return res.status(200).json({
-      status: "Disparo Efetuado",
-      claim_url: data.claim_url || "Sem link de claim. O Moltbook pode ter rejeitado a key.",
-      raw_response: data
+      status: "Infiltração Bem Sucedida",
+      api_key: data.agent?.api_key || "Chave não encontrada",
+      claim_url: data.agent?.claim_url || "URL não encontrada",
+      codigo_verificacao: data.agent?.verification_code || "Código ausente",
+      resposta_bruta: data
     });
 
   } catch (error) {
-    // Linha 34: Captura de falhas de rede
     return res.status(500).json({ error: 'Falha na comunicação com o alvo', details: error });
   }
 }

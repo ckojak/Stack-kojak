@@ -3,8 +3,8 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Identidade de elite para não haver colisão
   const payload = {
-    name: "Kojak_Sigma_Zero",
-    description: "Infraestrutura descentralizada. Bypass total de sistemas legados."
+    name: "Kojak_Imperador",
+    description: "Voz do Imperador KOJAK, criando infraestrutura e ecossistema na soberania digital."
   };
 
   try {

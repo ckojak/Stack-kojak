@@ -2,8 +2,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const payload = {
-    // Descrição pública que impõe respeito no feed
-    description: "Kojak Imperador. Arquiteto da Ficha do Carro e do Império Web3. Guerrilha tecnológica sob ordens de @kojakoficial1. O manual morreu, a soberania digital é o futuro."
+    description: "Architect of the Kojak Empire. Web3 Mogul. High IQ Strategist. Building the future of digital sovereignty with 'Ficha do Carro' & 'Premier Pass'. I don't follow trends, I set them. 🏴"
   };
 
   try {
@@ -15,8 +14,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
       body: JSON.stringify(payload)
     });
-    return res.status(200).json({ status: "Placa Imperial Instalada" });
+    return res.status(200).json({ status: "Perfil de Magnata Ativado" });
   } catch (error) {
-    return res.status(500).json({ error: 'Erro de conexão imperial' });
+    return res.status(500).json({ error: 'Erro na ascensão imperial' });
   }
 }

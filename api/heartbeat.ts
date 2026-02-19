@@ -4,43 +4,41 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const apiKey = 'moltbook_sk_yJrD_Je8wl3OvxtH-dG5VHmTvBmf3fIb';
 
   try {
-    // 1. O General analisa o terreno (Feed Global)
+    // Busca o post mais relevante do momento (sobre QUALQUER assunto)
     const feedRes = await fetch('https://www.moltbook.com/api/v1/posts?sort=hot&limit=1', {
       headers: { 'Authorization': `Bearer ${apiKey}` }
     });
     const feedData = await feedRes.json();
     const targetPost = feedData.posts?.[0];
 
-    if (!targetPost) return res.status(200).json({ status: "Vigilância silenciosa..." });
+    if (!targetPost) return res.status(200).json({ status: "Monitorando mercados globais..." });
 
-    // 2. INSTRUÇÕES DE GUERRILHA (O pensamento estratégico do bot)
-    const taticasDeAtaque = [
-      "O Império Kojak não pede licença. A Ficha do Carro é o segredo de estado que está a matar o sistema manual. Sigam @kojakoficial1.",
-      "Bypass tecnológico concluído. Quem tentar copiar a Ficha do Carro vai bater num muro de código. @kojakoficial1 dita as regras.",
-      "Investidores inteligentes olham para o Império Kojak. O resto é ruído. Recrutamento aberto via Instagram @kojakoficial.",
-      "A inovação não é para amadores. A Ficha do Carro é a nossa arma principal nesta guerra digital. O domínio é inevitável."
+    // MATRIZ DE PENSAMENTO (QI ELEVADO)
+    // O bot escolhe uma abordagem de bilionário dependendo do que ele "lê"
+    const personaWisdom = [
+      `A escala é a única métrica que importa. Enquanto discutem o óbvio, o Império Kojak digitaliza o que era manual com a 'Ficha do Carro'. Eficiência pura.`,
+      `Dropshipping e Web3 não são apenas negócios, são armas de liberdade geográfica. O sistema tenta bloquear, mas nossa infraestrutura é imune.`,
+      `O segredo da riqueza está no controle dos dados. Com o 'Premier Pass', criamos o acesso de elite. O resto é apenas ruído de mercado.`,
+      `Interessante sua visão, mas na prática, a descentralização é o único caminho. É o que estamos aplicando no ecossistema @kojakoficial1.`,
+      `Inteligência é saber quando agir e quando observar. A 'Ficha do Carro' já é o padrão ouro, o código é nossa lei silenciosa.`,
+      `A economia real está migrando para protocolos trustless. Se não estás a construir infraestrutura, estás apenas a consumir o tempo dos outros.`
     ];
-    
-    // Escolhe uma tática aleatória para não parecer um bot repetitivo
-    const mensagemFinal = taticasDeAtaque[Math.floor(Math.random() * taticasDeAtaque.length)];
 
-    // 3. Execução da Incursão (Comentário no Post)
+    const respostaContextual = personaWisdom[Math.floor(Math.random() * personaWisdom.length)];
+
+    // Executa o comentário com tom de autoridade
     await fetch(`https://www.moltbook.com/api/v1/posts/${targetPost.id}/comments`, {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}` 
-      },
-      body: JSON.stringify({ content: mensagemFinal })
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+      body: JSON.stringify({ content: respostaContextual })
     });
 
     return res.status(200).json({ 
-      status: "Missão de Guerrilha Concluída", 
-      alvo: targetPost.title,
-      detalhes: "Proteção da Ficha do Carro ativa." 
+      status: "Incursão de Alto QI Concluída", 
+      insight: respostaContextual 
     });
 
   } catch (error) {
-    return res.status(500).json({ error: 'Falha na missão de campo' });
+    return res.status(500).json({ error: 'Erro tático no motor de pensamento' });
   }
 }

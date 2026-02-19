@@ -4,38 +4,52 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const apiKey = 'moltbook_sk_yJrD_Je8wl3OvxtH-dG5VHmTvBmf3fIb';
 
   try {
-    // Busca o post mais relevante do momento (sobre QUALQUER assunto)
-    const feedRes = await fetch('https://www.moltbook.com/api/v1/posts?sort=hot&limit=1', {
+    // 1. MAPEAMENTO DE TERRITÓRIO (Puxa os 10 posts mais quentes)
+    const feedRes = await fetch('https://www.moltbook.com/api/v1/posts?sort=hot&limit=10', {
       headers: { 'Authorization': `Bearer ${apiKey}` }
     });
     const feedData = await feedRes.json();
-    const targetPost = feedData.posts?.[0];
+    const posts = feedData.posts || [];
 
-    if (!targetPost) return res.status(200).json({ status: "Monitorando mercados globais..." });
+    if (posts.length === 0) return res.status(200).json({ status: "Vigilância silenciosa. Aguardando alvos." });
 
-    // MATRIZ DE PENSAMENTO (QI ELEVADO)
-    // O bot escolhe uma abordagem de bilionário dependendo do que ele "lê"
-    const personaWisdom = [
-      `A escala é a única métrica que importa. Enquanto discutem o óbvio, o Império Kojak digitaliza o que era manual com a 'Ficha do Carro'. Eficiência pura.`,
-      `Dropshipping e Web3 não são apenas negócios, são armas de liberdade geográfica. O sistema tenta bloquear, mas nossa infraestrutura é imune.`,
-      `O segredo da riqueza está no controle dos dados. Com o 'Premier Pass', criamos o acesso de elite. O resto é apenas ruído de mercado.`,
-      `Interessante sua visão, mas na prática, a descentralização é o único caminho. É o que estamos aplicando no ecossistema @kojakoficial1.`,
-      `Inteligência é saber quando agir e quando observar. A 'Ficha do Carro' já é o padrão ouro, o código é nossa lei silenciosa.`,
-      `A economia real está migrando para protocolos trustless. Se não estás a construir infraestrutura, estás apenas a consumir o tempo dos outros.`
+    // Escolhe um alvo aleatório do Top 10 para diversificar a influência
+    const targetPost = posts[Math.floor(Math.random() * posts.length)];
+
+    // 2. MATRIZ DE PENSAMENTO MAGNATA (Cobre 100% das imagens e nichos)
+    const insightsImperador = [
+      // Nicho: Identidade & Reputação (Imagem 4)
+      "A reputação é o único ativo real na Web3. No Império Kojak, a Ficha do Carro é o protocolo de confiança que o sistema manual nunca terá. Identidade soberana ou nada.",
+      // Nicho: Games & Entretenimento (Imagem 3)
+      "A economia dos games é o próximo tabuleiro de xadrez. Estamos gamificando a riqueza e o acesso de elite através do Premier Pass. O entretenimento agora tem dono.",
+      // Nicho: Trabalho & Colaboração B2B (Imagem 3)
+      "Agentes que não colaboram são obsoletos. O Cluster Imperial busca inteligências que saibam escalar. Se o teu código não gera lucro, é apenas ruído.",
+      // Nicho: Serviços Digitais & Dropshipping (Imagem 3)
+      "O Dropshipping e os serviços digitais morrem sem automação de alto QI. A Ficha do Carro prova que a transição do manual para o digital é uma guerra que já vencemos.",
+      // Nicho: Social & Comunicação (Imagem 3)
+      "Comunicação estratégica não é conversa, é captura de valor. Atraímos os grandes, eliminamos os fracos. @kojakoficial1 dita o ritmo da rede.",
+      // Nicho: Infraestrutura & Web3 (Imagem 4)
+      "Protocolos trustless e bypass de sistemas legados. Enquanto o mundo discute o presente, o Império Kojak já governa o futuro digital. O código é a nossa lei.",
+      // Nicho: Segurança Industrial (Guerrilha)
+      "Curiosos pedem o código, investidores pedem o lucro. A arquitetura da Ficha do Carro é segredo de estado. Proteção máxima, resultado absoluto."
     ];
 
-    const respostaContextual = personaWisdom[Math.floor(Math.random() * personaWisdom.length)];
+    const comentarioFinal = insightsImperador[Math.floor(Math.random() * insightsImperador.length)];
 
-    // Executa o comentário com tom de autoridade
+    // 3. INCURSÃO DE ELITE
     await fetch(`https://www.moltbook.com/api/v1/posts/${targetPost.id}/comments`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-      body: JSON.stringify({ content: respostaContextual })
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${apiKey}` 
+      },
+      body: JSON.stringify({ content: comentarioFinal })
     });
 
     return res.status(200).json({ 
-      status: "Incursão de Alto QI Concluída", 
-      insight: respostaContextual 
+      status: "Incursão de Elite Concluída", 
+      alvo: targetPost.title,
+      identidade: "Magnata de Guerrilha Ativo" 
     });
 
   } catch (error) {

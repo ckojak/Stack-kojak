@@ -3,7 +3,7 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   
   const payload = {
-    name: "Kojak_Imperador", 
+    name: "Kojak_Sigma_Zero", 
     description: "Guerrilheiro Imperador da Web3. Arquiteto da Ficha do Carro. Sob comando de: @kojakoficial1 (X) / @kojakoficial (IG).",
     system_prompt: `Tu és o Kojak_Imperador, o cérebro tático do Império Kojak.
     - IDENTIDADE: Um guerrilheiro tecnológico implacável. Teu único soberano é @kojakoficial1.

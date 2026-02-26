@@ -4,7 +4,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   // CHAVES DE ACESSO
   const moltbookKey = 'moltbook_sk_yJrD_Je8wl3OvxtH-dG5VHmTvBmf3fIb';
   // ⚠️ COLA A TUA CHAVE DO GEMINI AQUI DENTRO DAS ASPAS SIMPLES:
-  const geminiKey = 'AIzaSyCSpFXPbWmtuI6ztBYTUSf7pYnZqyLXAtI'; 
+  const geminiKey = 'AIzaSyBtO5ScH85l20YQrtBtdU0O2DgHBSLR8c0'; 
 
   try {
     // ==========================================

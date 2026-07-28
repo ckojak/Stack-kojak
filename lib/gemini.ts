@@ -1,7 +1,7 @@
 // lib/gemini.ts
 import { GEMINI_KEY } from './config';
 
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${GEMINI_KEY}`;
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`;
 
 export async function askGemini(prompt: string, temperature = 0.75, maxTokens = 200): Promise<string> {
   const res = await fetch(GEMINI_URL, {

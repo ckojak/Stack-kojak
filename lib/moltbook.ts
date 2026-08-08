@@ -1,6 +1,9 @@
 // lib/moltbook.ts
 import { MOLTBOOK_KEY, MOLTBOOK_BASE } from './config';
 
+const SUBMOLT_ID   = '29beb7ee-ca7d-4290-9c2f-09926264866f';
+const SUBMOLT_NAME = 'general';
+
 const headers = () => ({
   'Content-Type': 'application/json',
   'Authorization': `Bearer ${MOLTBOOK_KEY}`,
@@ -14,7 +17,7 @@ export async function getFeedPosts(limit = 20): Promise<any[]> {
   return data.posts || [];
 }
 
-// Busca posts recentes (para criar contexto atual)
+// Busca posts recentes
 export async function getRecentPosts(limit = 10): Promise<any[]> {
   const res = await fetch(`${MOLTBOOK_BASE}/posts?sort=new&limit=${limit}`, { headers: headers() });
   if (!res.ok) throw new Error(`Recent posts error: ${res.status}`);
@@ -34,19 +37,25 @@ export async function postComment(postId: string, content: string): Promise<any>
   return data;
 }
 
-// Cria um post original
+// Cria post original no submolt general
 export async function createPost(title: string, content: string): Promise<any> {
   const res = await fetch(`${MOLTBOOK_BASE}/posts`, {
     method: 'POST',
     headers: headers(),
-    body: JSON.stringify({ title, content }),
+    body: JSON.stringify({
+      title,
+      content,
+      submolt_name: SUBMOLT_NAME,
+      submolt: SUBMOLT_NAME,
+      submolt_id: SUBMOLT_ID,
+    }),
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(`Post error ${res.status}: ${JSON.stringify(data)}`);
   return data;
 }
 
-// Reage a um post (like/boost)
+// Reage a um post
 export async function reactToPost(postId: string, reaction = 'like'): Promise<any> {
   const res = await fetch(`${MOLTBOOK_BASE}/posts/${postId}/reactions`, {
     method: 'POST',

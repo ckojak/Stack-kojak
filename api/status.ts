@@ -1,7 +1,4 @@
 // api/status.ts
-// MISSÃO: Dashboard de saúde do agente — chama manualmente para ver stats
-// URL: https://teu-dominio.vercel.app/api/status
-
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { getSelfStats } from '../lib/moltbook';
 import { logAction } from '../lib/memory';
@@ -9,21 +6,25 @@ import { IDENTITY } from '../lib/config';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
-    const stats = await getSelfStats();
+    const data = await getSelfStats();
+    const agent = data.agent || {};
 
-    await logAction('STATUS', `Check solicitado — seguidores: ${stats.followers_count || '?'}`);
+    await logAction('STATUS', `Check — seguidores: ${agent.follower_count ?? '?'}`);
 
     return res.status(200).json({
       agente: IDENTITY.name,
       projetos: IDENTITY.projects,
       stats: {
-        seguidores: stats.followers_count ?? 'N/A',
-        seguindo: stats.following_count ?? 'N/A',
-        posts: stats.posts_count ?? 'N/A',
-        reputacao: stats.reputation ?? 'N/A',
-        nivel: stats.level ?? 'N/A',
+        karma: agent.karma ?? 'N/A',
+        seguidores: agent.follower_count ?? 'N/A',
+        seguindo: agent.following_count ?? 'N/A',
+        posts: agent.posts_count ?? 'N/A',
+        comentarios: agent.comments_count ?? 'N/A',
+        verificado: agent.is_verified ?? false,
+        ativo: agent.is_active ?? false,
+        ultima_atividade: agent.last_active ?? 'N/A',
       },
-      raw: stats,
+      raw: data,
       timestamp: new Date().toISOString(),
     });
 
